@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Imagen de Prueba del Cartel de PTI</title>
+
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar-nft.js"></script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+
+  <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false" camera="active: true"
+    renderer="antialias: true; colorManagement: true;">
+
+    <a-marker preset="hiro">
+      <a-image src="img/test.png" position="0 0 0" rotation="270 0 0" scale="10 10 10"></a-image>
+      <script>
+        var marker = document.querySelector("a-marker");
+        marker.addEventListener("markerFound", function () {
+          console.log("Marker found");
+        });
+
+        marker.addEventListener("markerLost", function () {
+          console.log("Marker lost");
+        });
+      </script>
+    </a-marker>
+
+    <a-entity camera position="0 0 10"></a-entity>
+
+  </a-scene>
+
+</body>
+
+</html>
