@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>AR Video</title>
+
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar-nft.js"></script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+
+  <div style="position: fixed; top: 10px; width:100%; text-align: center; z-index: 1;">
+    <button id="audioButton">Audio</button>
+  </div>
+
+  <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false" camera="active: true"
+    renderer="antialias: true; colorManagement: true;">
+
+
+    <a-marker preset="hiro">
+      <video id="mivideo" crossOrigin="anonymous" playsinline webkitplaysinline autoplay muted controls
+        src="video/1.mp4"></video>
+      <a-video src="#mivideo" position="0 0 0" rotation="270 0 0"></a-video>
+
+      <script>
+        var marker = document.querySelector("a-marker");
+        marker.addEventListener("markerFound", function () {
+          console.log("Marker found");
+          var video = document.querySelector('#mivideo');
+          video.play();
+        });
+
+        marker.addEventListener("markerLost", function () {
+          console.log("Marker lost");
+          var video = document.querySelector('#mivideo');
+          video.pause();
+        });
+
+        document.querySelector("#audioButton").addEventListener("click", function () {
+          console.log("Activating sound");
+          var video = document.querySelector('#mivideo');
+          video.muted = false;
+        });
+      </script>
+
+    </a-marker>
+
+    <a-entity camera></a-entity>
+
+  </a-scene>
+
+</body>
+
+</html>
