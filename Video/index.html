@@ -20,29 +20,40 @@
   <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false" camera="active: true"
     renderer="antialias: true; colorManagement: true;">
 
-
     <a-marker preset="hiro">
       <video id="mivideo" crossOrigin="anonymous" playsinline webkitplaysinline loop autoplay muted controls
-        src="video/1.mp4"></video>
-      <a-video src="#mivideo" position="0 0 0" rotation="270 0 0" scale="5 5 5"></a-video>
+        src="video/allyouneedislove.mp4"></video>
+      <a-video src="#mivideo" position="0 0 0" rotation="270 0 0" scale="7 5 5"></a-video>
       <script>
         var marker = document.querySelector("a-marker");
+        var video = document.querySelector('#mivideo');
+        var audioButton = document.querySelector("#audioButton");
+
         marker.addEventListener("markerFound", function () {
           console.log("Marker found");
-          var video = document.querySelector('#mivideo');
           video.play();
         });
 
         marker.addEventListener("markerLost", function () {
           console.log("Marker lost");
-          var video = document.querySelector('#mivideo');
           video.pause();
         });
 
-        document.querySelector("#audioButton").addEventListener("click", function () {
-          console.log("Activating sound");
-          var video = document.querySelector('#mivideo');
-          video.muted = false;
+        // Inicializamos el estado del audio como apagado (muted)
+        var audioEnabled = false;
+
+        audioButton.addEventListener("click", function () {
+          if (audioEnabled) {
+            // Si el audio está activado, lo desactivamos y cambiamos el texto a "Audio"
+            video.muted = true;
+            audioButton.textContent = "Audio";
+            audioEnabled = false;
+          } else {
+            // Si el audio está desactivado, lo activamos y cambiamos el texto a "Desactivar audio"
+            video.muted = false;
+            audioButton.textContent = "Desactivar audio";
+            audioEnabled = true;
+          }
         });
       </script>
 
